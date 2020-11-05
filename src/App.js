@@ -3,26 +3,22 @@ import Input from './hw1/Input/Input';
 import Poker from './hw1/Poker/Poker';
 import React, {Component} from 'react';
 import {ctoi} from './utiti/ctoi';
-import {insertionSort} from './utiti/insertionSort';
+import {selectionSort} from './utiti/selectionSort';
 import {MDBContainer, MDBRow, MDBCol} from 'mdbreact';
 import FlipMove from 'react-flip-move';
-import spade from './spade.png';
-import heart from './heart.png';
-import club from './club.png';
-import diamond from './diamond.png';
 
 class App extends Component{
   state = {
     waiting: true,
     cards: [],
-    index: 1,
+    index: 0,
   }
 
   changeWaiting = () => {
     const tmp = this.state.waiting;
     this.setState({
       waiting: !tmp,
-      index: 1
+      index: 0
     });
   }
 
@@ -36,9 +32,8 @@ class App extends Component{
   }
 
   goSort = () => {
-    if(this.state.index != this.state.cards.length){
-      let tc = insertionSort(this.state.cards,this.state.index);
-      console.log(tc);
+    if(this.state.index != this.state.cards.length - 1){
+      let tc = selectionSort(this.state.cards,this.state.index);
       this.setState({
         cards: tc,
         index: this.state.index + 1
@@ -67,7 +62,7 @@ class App extends Component{
                         {this.state.cards.map((card) => {
                           return(
                             <Poker
-                              key = {card}
+                              key = {card} /*{Math.random()}*/
                               card={card}
                             />
                           )
